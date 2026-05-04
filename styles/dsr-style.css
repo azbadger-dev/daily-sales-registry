@@ -1,1 +1,169 @@
-@import url("https://fonts.googleapis.com/css2?family=Lexend+Exa&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Google-Sans", sans-serif;
+    outline: none;
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+}
+
+:root{
+    --bg-color: #8f8f8f;
+    --accent-color: #cccccc;
+    --texcolor-light: #ffffff;
+    --texcolor-dark: #4f4f4f;
+    --titles-text-size: 1.2rem;
+}
+
+main {
+    display: grid;
+    background-color: var(--bg-color);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+    "form"
+    "dashboard";
+}
+
+.section-entry{
+    grid-area: form;
+    display: grid;
+    color: var(--texcolor-light);
+    padding: 2rem;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(4, max-content) 6rem repeat(3, max-content);
+    gap: 1.5rem;
+}
+
+.div-elements-primary{
+    display: grid;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: 14rem;
+    grid-template-rows: repeat(2, max-content);
+    grid-template-areas: "label" "input";
+    gap: 0.5rem;
+}
+
+.div-elements-secondary{
+    display: grid;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: 14rem;
+    grid-template-rows: repeat(3, max-content);
+    grid-template-areas:
+    "label"
+    "input"
+    "button";
+    gap: 0.5rem 1rem;
+}
+
+.label-custom{
+    grid-area: label;
+    font-size: var(--titles-text-size);
+}
+
+.input-field{
+    grid-area: input;
+    border: none;
+    height: 1.7rem;
+    border-radius: 0.7rem;
+    padding: 0.25rem 0.55rem;
+}
+
+.btn-custom{
+    color: var(--texcolor-dark);
+    transition: background 0.3s ease;
+    cursor: pointer;
+    border: none;
+    border-radius: 2.5rem;
+    padding: 0.8rem 0;
+}
+
+.btn-custom:hover{
+    background-color: var(--accent-color);
+}
+
+.btn-primary{
+    grid-area: auto;
+    justify-self: start;
+    width: 10rem;
+    margin: 1rem 0;
+}
+
+.btn-secondary{
+    grid-area: button;
+    width: 6rem;
+}
+
+.btn-round{
+    grid-area: button;
+    width: 2.8rem;
+    height: 2.8rem;
+}
+
+#prev-cash-save-btn{
+    display: none;
+}
+
+.cmb{
+    width: 10rem;
+    position: relative;
+    z-index: 3;    
+}
+
+.cmb select{
+    appearance: none;
+    border: 0.125rem solid var(--texcolor-dark);
+    color: var(--texcolor-dark);
+    position: relative;
+    z-index: 5;
+    cursor: pointer;
+    transition: background .3s ease;
+    border-radius: 1rem;
+    padding-left: 0.55rem;
+    height: 2rem;
+    width: 100%;    
+}
+
+.cmb select:hover{
+    background-color: var(--accent-color);
+}
+
+.cmb i{
+    border-radius: 50%;
+    color: var(--texcolor-dark);
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    pointer-events: none;
+    z-index: 6;
+    width: 2rem;
+}
+
+@media (min-width: 768px){
+    main{
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: auto;
+        grid-template-areas: "form dashboard"; 
+    }
+    .section-entry{
+        padding: 2rem 0 2rem 3.6rem;
+    }
+}
+    
+@media (min-width: 1024px) {
+    .div-elements-secondary{
+        grid-template-columns: 14rem auto;
+        grid-template-rows: repeat(2, max-content);
+        grid-template-areas:
+        "label button"
+        "input button";
+    }
+}
