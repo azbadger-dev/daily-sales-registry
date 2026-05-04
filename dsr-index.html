@@ -59,23 +59,69 @@
         <section class="section-dashboard">
             <span class="span-title">Dashboard Ventas</span>
             <div class="div-dashboard-table" id="dashboard-table">
-                <div class="headers-colums">
-                    <div class="header-dashboard">Descripción</div>
-                    <div class="header-dashboard">Monto</div>
-                    <div class="header-dashboard header-payment-method">
-                        <span>Método de pago</span>
-                        <div class="cmb">
-                            <select id="payment-method-dashboard">
-                            <option value="1">Ver todo</option>
-                            <option value="2">Efectivo</option>
-                            <option value="3">Tarjeta</option>
-                            <option value="4">Yappy</option>
-                            <option value="5">Yappy Comercial</option>
-                            <option value="6">Transferencia</option>
-                            </select>
-                            <i class='bx bx-chevron-down'></i>
-                        </div>
+                <div class="header-dashboard header-description">Descripción</div>
+                <div class="header-dashboard header-amount">Monto</div>
+                <div class="header-dashboard header-payment-method">
+                    <span>Método de pago</span>
+                    <div class="cmb dashboard-cmb">
+                        <select id="payment-method-table">
+                        <option value="1">Ver todo</option>
+                        <option value="2">Efectivo</option>
+                        <option value="3">Tarjeta</option>
+                        <option value="4">Yappy</option>
+                        <option value="5">Yappy Comercial</option>
+                        <option value="6">Transferencia</option>
+                        </select>
+                        <i class='bx bx-chevron-down'></i>
                     </div>
+                </div>
+                <div class="sale-content">
+                    <span>Call of Duty</span>
+                    <span>$20</span>
+                    <span>Transferencia</span>
+                    <button class="btn-trash"><i class="bx bx-trash"></i></button>
+                </div>
+                <div class="sale-content">
+                    <div>Super Mario Party</div>
+                    <div>$49</div>
+                    <div>Tarjeta</div>
+                    <button class="btn-trash"><i class="bx bx-trash"></i></button>
+                </div>
+                <div class="total-title">Total</div>
+                <div class="total-amount">$0</div>
+            </div>
+            <div class="div-dashboard-cards">
+                <div class="dashboard-cmb-cards">
+                    <span>Filtro:</span>
+                    <div class="cmb dashboard-cmb">
+                        <select id="payment-method-cards">
+                        <option value="1">Ver todo</option>
+                        <option value="2">Efectivo</option>
+                        <option value="3">Tarjeta</option>
+                        <option value="4">Yappy</option>
+                        <option value="5">Yappy Comercial</option>
+                        <option value="6">Transferencia</option>
+                        </select>
+                        <i class='bx bx-chevron-down'></i>
+                    </div>
+                </div>
+                <div class="dashboard-cards">
+                    <label class="label-description">Descripción:</label>
+                    <span class="span-description">Call of Duty</span>
+                    <label class="label-amount">Monto:</label>
+                    <span class="span-amount">$20</span>
+                    <label class="label-payment-method">Método de pago:</label>
+                    <span class="span-payment-method">Transferencia</span>
+                    <button class="btn-trash"><i class="bx bx-trash"></i></button>
+                </div>
+                <div class="dashboard-cards">
+                    <label class="label-description">Descripción:</label>
+                    <span class="span-description">Super Mario Party</span>
+                    <label class="label-amount">Monto:</label>
+                    <span class="span-amount">$49</span>
+                    <label class="label-payment-method">Método de pago:</label>
+                    <span class="span-payment-method">Tarjeta</span>
+                    <button class="btn-trash"><i class="bx bx-trash"></i></button>
                 </div>
             </div>
             <div class="div-dashboard-output">

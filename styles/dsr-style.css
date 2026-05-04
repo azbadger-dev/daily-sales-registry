@@ -20,6 +20,8 @@ html, body{
     --accent-color: #cccccc;
     --texcolor-light: #ffffff;
     --texcolor-dark: #4f4f4f;
+    --red-color-primary: #e7191f;
+    --red-color-accent: #ff6d72;
     --titles-text-size: 1.2rem;
 }
 
@@ -112,6 +114,7 @@ main {
     grid-area: button;
     width: 2.8rem;
     height: 2.8rem;
+    font-size: var(--titles-text-size);
 }
 
 #prev-cash-save-btn{
@@ -134,6 +137,7 @@ main {
     transition: background .3s ease;
     border-radius: 1rem;
     padding-left: 0.55rem;
+    padding-right: 1.7rem;
     height: 2rem;
     width: 100%;    
 }
@@ -143,7 +147,7 @@ main {
 }
 
 .cmb i{
-    border-radius: 50%;
+    border-radius: 1rem;
     color: var(--texcolor-dark);
     display: grid;
     place-items: center;
@@ -156,14 +160,163 @@ main {
     width: 2rem;
 }
 
+.section-dashboard{
+    grid-area: dashboard;
+    display: grid;
+    color: var(--texcolor-light);
+    padding: 2rem;
+    grid-template-columns: auto;
+    grid-template-rows: max-content max-content 1fr;
+    gap: 1.5rem;
+    background-color: sandybrown;
+}
+
+.span-title{
+    font-size: var(--titles-text-size);
+}
+
+.div-dashboard-table{
+    display: none;
+}
+
+.div-dashboard-cards{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(auto, max-content);
+    gap: 1rem;
+}
+
+.dashboard-cmb-cards{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.dashboard-cards{
+    display: grid;
+    grid-template-columns: fit-content(1fr) fit-content(2fr);
+    grid-template-rows: repeat(4, max-content);
+    grid-template-areas:
+    "description_title description_content"
+    "amount_title amount_content"
+    "payment_method_title payment_method_content"
+    ". del_btn";
+    gap: 0.5rem;
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.6rem;
+    background-color: var(--texcolor-light);
+    color: var(--texcolor-dark);
+
+}
+
+.label-description{
+    grid-area: description_title;
+}
+
+.label-amount{
+    grid-area: amount_title;
+}
+
+.label-payment-method{
+    grid-area: payment_method_title;
+}
+
+.span-description{
+    grid-area: description_content;
+}
+
+.span-amount{
+    grid-area: amount_content;
+}
+
+.span-payment-method{
+    grid-area: payment_method_content;
+}
+
+.dashboard-cmb{
+    width: max-content;
+}
+
+.dashboard-cmb select{
+    width: max-content;
+}
+
+.btn-trash{
+    grid-area: del_btn;
+    color: var(--texcolor-light);
+    background-color: var(--red-color-primary);
+    height: 2.25rem;
+    width: 2.25rem;
+    border-radius: 1.125rem;
+    border: 0;
+    font-size: var(--titles-text-size);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    justify-self: end;
+}
+
+.btn-trash:hover{
+    background-color: var(--red-color-accent);
+}
+
 @media (min-width: 768px){
     main{
         grid-template-columns: 2fr 3fr;
         grid-template-rows: auto;
         grid-template-areas: "form dashboard"; 
     }
+    
     .section-entry{
         padding: 2rem 0 2rem 3.6rem;
+    }
+
+    .div-dashboard-cards{
+        display: none;
+    }
+
+    .div-dashboard-table{
+        display: grid;
+        grid-template-columns: repeat(2, max-content) fit-content(18rem) 1fr;
+        grid-template-rows: repeat(auto, max-content);
+        grid-template-areas:
+        "header_description header_amount header_payment_method header_payment_method"
+        "sale_content sale_content sale_content sale_content";
+        row-gap: 0.5rem;
+        column-gap: 1rem;
+        align-items: center;
+        color: var(--texcolor-dark);
+        background-color: var(--texcolor-light);
+        border: none;
+        border-radius: 0.6rem;
+        padding: 0.6rem;
+    }
+
+    .header-description{
+        grid-area: header_description;
+    }
+
+    .header-amount{
+        grid-area: header_amount;
+    }
+
+    .header-payment-method{
+        grid-area: header_payment_method;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-self: start;
+        gap: 0.5rem;
+    }
+
+    .sale-content{
+        display: contents;
+        grid-area: sale_content;
+    }
+    
+    .btn-trash{
+        grid-area: auto;
     }
 }
     
@@ -174,5 +327,10 @@ main {
         grid-template-areas:
         "label button"
         "input button";
+    }
+
+    .header-payment-method{
+        flex-direction: row;
+        align-items: center;
     }
 }
