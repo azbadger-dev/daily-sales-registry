@@ -38,7 +38,7 @@ main {
     color: var(--texcolor-light);
     padding: 2rem;
     grid-template-columns: auto;
-    grid-template-rows: repeat(4, max-content) 6rem repeat(3, max-content);
+    grid-template-rows: repeat(4, max-content) 5.5rem repeat(3, max-content);
     gap: 1.5rem;
 }
 
@@ -78,6 +78,11 @@ main {
     padding: 0.25rem 0.55rem;
 }
 
+#prev-cash-input{
+    border: 0.125rem var(--texcolor-light) solid;
+    height: calc(1.7rem + 0.25rem);
+}
+
 .btn-custom{
     color: var(--texcolor-dark);
     transition: background 0.3s ease;
@@ -95,7 +100,7 @@ main {
     grid-area: auto;
     justify-self: start;
     width: 10rem;
-    margin: 1rem 0;
+    margin: 0.5rem 0 1.3rem 0;
 }
 
 .btn-secondary{
@@ -116,7 +121,7 @@ main {
 .cmb{
     width: 10rem;
     position: relative;
-    z-index: 3;    
+    z-index: 2;    
 }
 
 .cmb select{
@@ -124,7 +129,7 @@ main {
     border: 0.125rem solid var(--texcolor-dark);
     color: var(--texcolor-dark);
     position: relative;
-    z-index: 5;
+    z-index: 3;
     cursor: pointer;
     transition: background .3s ease;
     border-radius: 1rem;
@@ -147,7 +152,7 @@ main {
     right: 0;
     height: 100%;
     pointer-events: none;
-    z-index: 6;
+    z-index: 4;
     width: 2rem;
 }
 
