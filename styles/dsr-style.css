@@ -160,15 +160,22 @@ main {
     width: 2rem;
 }
 
+.div-prev-cash{
+    grid-template-columns: 14rem auto;
+    grid-template-rows: repeat(2, max-content);
+    grid-template-areas:
+    "label button"
+    "input button";
+}
+
 .section-dashboard{
     grid-area: dashboard;
     display: grid;
     color: var(--texcolor-light);
     padding: 2rem;
     grid-template-columns: auto;
-    grid-template-rows: max-content max-content 1fr;
+    grid-template-rows: repeat(3, max-content);
     gap: 1.5rem;
-    background-color: sandybrown;
 }
 
 .span-title{
@@ -195,7 +202,7 @@ main {
 
 .dashboard-cards{
     display: grid;
-    grid-template-columns: fit-content(1fr) fit-content(2fr);
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(4, max-content);
     grid-template-areas:
     "description_title description_content"
@@ -243,6 +250,16 @@ main {
     width: max-content;
 }
 
+.dashboard-card-total{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.6rem;
+    background-color: var(--texcolor-light);
+    color: var(--texcolor-dark);
+}
+
 .btn-trash{
     grid-area: del_btn;
     color: var(--texcolor-light);
@@ -259,6 +276,26 @@ main {
 
 .btn-trash:hover{
     background-color: var(--red-color-accent);
+}
+
+.div-dashboard-output{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+.textarea-custom{
+    resize: none;
+    width: 100%;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 0.6rem;
+}
+
+#report-output-btn{
+    padding: 1.5rem 0;
 }
 
 @media (min-width: 768px){
