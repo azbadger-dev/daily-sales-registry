@@ -8,6 +8,7 @@
     font-style: normal;
     font-weight: 500;
     outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html, body{
@@ -23,6 +24,20 @@ html, body{
     --red-color-primary: #e7191f;
     --red-color-accent: #ff6d72;
     --titles-text-size: 1.2rem;
+}
+
+@media(hover: hover){
+    .btn-custom:hover{
+        background-color: var(--accent-color);
+    }
+
+    .cmb select:hover{
+        background-color: var(--accent-color);
+    }
+
+    .btn-trash:hover{
+        background-color: var(--red-color-accent);
+    }
 }
 
 main {
@@ -87,14 +102,14 @@ main {
 
 .btn-custom{
     color: var(--texcolor-dark);
-    transition: background 0.3s ease;
+    transition: background 0.2s ease;
     cursor: pointer;
     border: none;
     border-radius: 2.5rem;
     padding: 0.8rem 0;
 }
 
-.btn-custom:hover{
+.btn-custom:active{
     background-color: var(--accent-color);
 }
 
@@ -134,7 +149,7 @@ main {
     position: relative;
     z-index: 3;
     cursor: pointer;
-    transition: background .3s ease;
+    transition: background .2s ease;
     border-radius: 1rem;
     padding-left: 0.55rem;
     padding-right: 1.7rem;
@@ -142,7 +157,7 @@ main {
     width: 100%;    
 }
 
-.cmb select:hover{
+.cmb select:active{
     background-color: var(--accent-color);
 }
 
@@ -270,11 +285,11 @@ main {
     border: 0;
     font-size: var(--titles-text-size);
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.2s ease;
     justify-self: end;
 }
 
-.btn-trash:hover{
+.btn-trash:active{
     background-color: var(--red-color-accent);
 }
 
@@ -287,8 +302,9 @@ main {
 }
 
 .textarea-custom{
-    resize: none;
+    resize: vertical;
     width: 100%;
+    min-height: 10rem;
     padding: 0.6rem;
     border: none;
     border-radius: 0.6rem;
@@ -296,6 +312,11 @@ main {
 
 #report-output-btn{
     padding: 1.5rem 0;
+}
+
+.dashboard-cards, .dashboard-card-total, .div-dashboard-table, .textarea-custom{
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 768px){
