@@ -4,24 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro Diario R.G.L.</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Dancing+Script:wght@400..700&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Hurricane&family=Poiret+One&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="styles/dsr-style.css">
 </head>
 <body>
     <main>
         <section class="section-entry">
-            <div class="div-description div-elements-primary">
+            <div class="div-elements-primary">
                 <label class="label-custom" for="description-input">Descripción de la venta</label>
                 <input class="input-field" id="description-input" placeholder="Descripción">
             </div>
-            <div class="div-amount div-elements-primary">
+            <div class="div-elements-primary">
                 <label class="label-custom" for="amount-input">Monto</label>
                 <input class="input-field" id="amount-input" type="number" placeholder="$0.00">
             </div>
-            <div class="div-payment-method-entry div-elements-primary">
+            <div class="div-elements-primary">
                 <label class="label-custom" for="payment-method-entry">Método de pago</label>
                 <div class="cmb">
                     <select id="payment-method-entry">
@@ -39,17 +36,17 @@
                 <input class="input-field" id="percentage-input" type="number" placeholder="5%">
             </div>
             <button class="btn-custom btn-primary" id="add-sale-btn">Agregar Venta</button>
-            <div class="div-cash-withdrawal div-elements-secondary">
+            <div class="div-elements-secondary">
                 <label class="label-custom" for="cash-withdrawal-input">Retiro de caja</label>
                 <input class="input-field" id="cash-withdrawal-input" type="number" placeholder="$0.00">
                 <button class="btn-custom btn-secondary" id="cash-withdrawal-btn">Retirar</button>
             </div>
-            <div class="div-cash-add div-elements-secondary">
+            <div class="div-elements-secondary">
                 <label class="label-custom" for="cash-add-input">Añadir a caja</label>
                 <input class="input-field" id="cash-add-input" type="number" placeholder="$0.00">
                 <button class="btn-custom btn-secondary" id="cash-add-btn">Añadir</button>
             </div>
-            <div class="div-prev-cash div-elements-secondary">
+            <div class="div-elements-secondary">
                 <label class="label-custom" for="prev-cash-input">Saldo de caja del día anterior</label>
                 <input class="input-field" id="prev-cash-input" type="number" placeholder="$0.00" disabled="true">
                 <button class="btn-custom btn-round" id="prev-cash-edit-btn"><i class="bx bx-pencil"></i></button>
@@ -135,7 +132,7 @@
             </div>
         </section>
     </main>
-    <script src="scripts/sidebar-script.js"></script>
+    <footer></footer>
     <script src="scripts/dsr-script.js"></script>
 </body>
 </html>
