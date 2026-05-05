@@ -62,15 +62,10 @@ const renderTableRow = (sale) => {
     row.classList.add('sale-content', 'created-element'); // La clase que definiste en tu CSS Grid
 
     row.innerHTML = `
-        <span class="span-description">${sale.description}</span>
-        <span class="span-amount">$${sale.amount.toFixed(2)}</span>
-        <div class="header-payment-method">
-            <span class="span-payment-method">${sale.method}</span>
-            <i class='bx ${sale.icon}'></i>
-        </div>
-        <button class="btn-trash">
-            <i class="bx bx-trash"></i>
-        </button>
+        <span>${sale.description}</span>
+        <span>$${sale.amount.toFixed(2)}</span>
+        <span>${sale.method} <i class='bx ${sale.icon}'></i></span>
+        <button class="btn-trash"><i class="bx bx-trash"></i></button>
     `;
     const btnTrash = row.querySelector('.btn-trash');
     btnTrash.addEventListener('click', () => { deleteSale(sale.id) })
@@ -208,3 +203,53 @@ const PAYMENT_METHODS = {
 let salesList = [];
 let filteredSalesList = [];
 let totalSales = 0;
+let cashInitial = 0;
+let cashAdditions = 0;
+let cashWithdrawals = 0;
+
+salesList = [
+    {
+        "id": 1778015330898,
+        "description": "Switch",
+        "amount": 367.5,
+        "method": "Tarjeta",
+        "icon": "bx-credit-card"
+    },
+    {
+        "id": 1778015349175,
+        "description": "mario",
+        "amount": 40,
+        "method": "Efectivo",
+        "icon": "bx-money"
+    },
+    {
+        "id": 1778015364900,
+        "description": "mk 9",
+        "amount": 25,
+        "method": "Transferencia",
+        "icon": "bx-transfer"
+    },
+    {
+        "id": 1778015379492,
+        "description": "call of duty",
+        "amount": 25,
+        "method": "Yappy",
+        "icon": "bx-mobile-alt"
+    },
+    {
+        "id": 1778015401416,
+        "description": "gamecube",
+        "amount": 400,
+        "method": "Yappy Comercial",
+        "icon": "bx-store"
+    },
+    {
+        "id": 1778015427929,
+        "description": "pokemon rubi",
+        "amount": 42,
+        "method": "Tarjeta",
+        "icon": "bx-credit-card"
+    }
+];
+
+updateView();

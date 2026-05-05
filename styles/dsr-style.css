@@ -376,6 +376,10 @@ footer{
         grid-area: sale_content;
     }
     
+    .sale-content span{
+        margin-right: 0.5rem;
+    }
+
     .btn-trash{
         grid-area: auto;
     }
