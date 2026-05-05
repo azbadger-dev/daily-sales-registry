@@ -36,10 +36,15 @@ const addSale = () => {
 const updateView = () => {
     const oldSalesTable = document.querySelectorAll('.created-element');
     oldSalesTable.forEach(sale => { sale.remove() });
+    const emptySales = document.querySelectorAll('empty-sales');
     if (salesList.length === 0) {
-        // Aquí podrías poner un mensaje de "No hay ventas"
+        document.documentElement.style.setProperty('--empty-sales-display', 'grid')
         return;
     }
+
+    document.documentElement.style.setProperty('--empty-sales-display', 'none')
+
+    console.log(dashBoardTableDiv)
 
     const filteredValue = parseInt(paymentMethodTable.value);
     filteredSalesList = (filteredValue === 1) ? salesList : salesList.filter(
@@ -105,14 +110,14 @@ const clearInputs = () => {
     fieldsToClear.forEach(input => {
         if (input) { input.value = '' };
     });
-}
+};
 
 const updateTotal = () => {
     totalSales = Math.round(salesList.reduce((acc, a) => { return acc + parseFloat(a.amount) }, 0) * 100) / 100;
     const filteredTotal = Math.round(filteredSalesList.reduce((acc, a) => { return acc + parseFloat(a.amount) }, 0) * 100) / 100;
     renderTotalTable(filteredTotal.toFixed(2));
     renderTotalCards(filteredTotal.toFixed(2));
-}
+};
 
 const renderTotalTable = (filtered) => {
     const totalTitle = document.createElement('div');
@@ -135,12 +140,12 @@ const renderTotalCards = (filtered) => {
         <span>$${filtered}</span>
     `;
     dashBoardCardsDiv.appendChild(card);
-}
+};
 
 const deleteSale = (id) => {
     salesList = salesList.filter(sale => sale.id !== id);
     updateView();
-}
+};
 
 const percentageDisplayStatus = () => {
     const methodKey = parseInt(paymentMethodEntry.value);
@@ -150,11 +155,67 @@ const percentageDisplayStatus = () => {
         percentageInput.value = '';
         percentageDiv.style.display = 'none';
     }
-}
+};
 
-const syncFilters = () => {
+const addCash = () => {
+    if (cashAddInput.value && parseFloat(cashAddInput.value) > 0) {
+        cashAdditions += parseFloat(cashAddInput.value);
+    } else { alert("Por favor, ingresa un monto válido.") };
+    clearInputs();
+};
 
-}
+const withdrawalCash = () => {
+    if (cashWithdrawalInput.value && parseFloat(cashWithdrawalInput.value) > 0) {
+        cashWithdrawals += parseFloat(cashWithdrawalInput.value);
+    } else { alert("Por favor, ingresa un monto válido.") };
+    clearInputs();
+};
+
+const calculateCashStatus = () => {
+    const totalCashSales = salesList.filter(sale => sale.method === 'Efectivo')
+        .reduce((acc, sale) => acc + sale.amount, 0);
+
+    const currentInCash = cashInitial + totalCashSales + cashAdditions - cashWithdrawals;
+
+    return {
+        sales: totalCashSales,
+        total: currentInCash
+    }
+
+};
+
+const generateWhatsAppReport = () => {
+    const today = new Date();
+    const dateFormat = today.toLocaleDateString('es-PA', {
+        weekday: 'long', day: 'numeric',
+        month: 'long', year: 'numeric'
+    });
+
+    let report = `*Registro del día ${dateFormat}*\n`
+
+    Object.values(PAYMENT_METHODS).forEach(method => {
+        console.log(method);
+        const filtered = salesList.filter(s => s.method === method.name);
+        if (filtered.length > 0) {
+            const subtotal = filtered.reduce((acc, s) => acc + s.amount, 0);
+            report += `\n*${method.name.toUpperCase()}:$${subtotal.toFixed(2)}*\n`;
+            filtered.forEach(s => report += `• $${s.amount.toFixed(2)} ${s.description}\n`);
+        }
+    });
+
+    const cashStatus = calculateCashStatus();
+
+    report += `\n*Total Del Día = $${totalSales.toFixed(2)}`;
+    report += `\n\n*CAJA MENUDA*`;
+    report += `\nSaldo anterior: $${cashInitial.toFixed(2)}`;
+    report += `\n+ $${cashStatus.sales.toFixed(2)} - Ventas en Efectivo`
+    report += `\n+ $${cashAdditions.toFixed(2)} - Efectivo Agregado`
+    report += `\n- $${cashWithdrawals.toFixed(2)} - Efectivo Retirado`
+    report += `\n\n*Total en caja: $${cashStatus.total.toFixed(2)}*`;
+
+    const reportOutput = document.getElementById('report-output-textarea');
+    reportOutput.value = report;
+};
 
 // Inputs
 const descriptionInput = document.getElementById('description-input');
@@ -182,10 +243,15 @@ allFilters.forEach(select => {
 const btnAddSale = document.getElementById('add-sale-btn');
 btnAddSale.addEventListener('click', () => { addSale() });
 const btnCashWithdrawal = document.getElementById('cash-withdrawal-btn');
+btnCashWithdrawal.addEventListener('click', () => { withdrawalCash() });
 const btnCashAdd = document.getElementById('cash-add-btn');
+btnCashAdd.addEventListener('click', () => { addCash() });
 const btnPrevCashEdit = document.getElementById('prev-cash-edit-btn');
+btnPrevCashEdit.addEventListener('click', () => { });
 const btnPrevCashSave = document.getElementById('prev-cash-save-btn');
+btnPrevCashSave.addEventListener('click', () => { });
 const btnReportOutput = document.getElementById('report-output-btn');
+btnReportOutput.addEventListener('click', () => { generateWhatsAppReport() });
 
 // Containers
 const percentageDiv = document.getElementById('percentage-div');
@@ -209,46 +275,46 @@ let cashWithdrawals = 0;
 
 salesList = [
     {
-        "id": 1778015330898,
-        "description": "Switch",
-        "amount": 367.5,
-        "method": "Tarjeta",
-        "icon": "bx-credit-card"
+        id: 1778015330898,
+        description: "Switch",
+        amount: 367.5,
+        method: "Tarjeta",
+        icon: "bx-credit-card"
     },
     {
-        "id": 1778015349175,
-        "description": "mario",
-        "amount": 40,
-        "method": "Efectivo",
-        "icon": "bx-money"
+        id: 1778015349175,
+        description: "mario",
+        amount: 40,
+        method: "Efectivo",
+        icon: "bx-money"
     },
     {
-        "id": 1778015364900,
-        "description": "mk 9",
-        "amount": 25,
-        "method": "Transferencia",
-        "icon": "bx-transfer"
+        id: 1778015364900,
+        description: "mk 9",
+        amount: 25,
+        method: "Transferencia",
+        icon: "bx-transfer"
     },
     {
-        "id": 1778015379492,
-        "description": "call of duty",
-        "amount": 25,
-        "method": "Yappy",
-        "icon": "bx-mobile-alt"
+        id: 1778015379492,
+        description: "call of duty",
+        amount: 25,
+        method: "Yappy",
+        icon: "bx-mobile-alt"
     },
     {
-        "id": 1778015401416,
-        "description": "gamecube",
-        "amount": 400,
-        "method": "Yappy Comercial",
-        "icon": "bx-store"
+        id: 1778015401416,
+        description: "gamecube",
+        amount: 400,
+        method: "Yappy Comercial",
+        icon: "bx-store"
     },
     {
-        "id": 1778015427929,
-        "description": "pokemon rubi",
-        "amount": 42,
-        "method": "Tarjeta",
-        "icon": "bx-credit-card"
+        id: 1778015427929,
+        description: "pokemon rubi",
+        amount: 42,
+        method: "Tarjeta",
+        icon: "bx-credit-card"
     }
 ];
 
