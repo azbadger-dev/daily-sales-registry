@@ -18,7 +18,7 @@
                 <label class="label-custom" for="amount-input">Monto</label>
                 <input class="input-field" id="amount-input" type="number" placeholder="$0.00">
             </div>
-            <div class="div-elements-primary">
+            <div class="div-elements-primary div-payment-method">
                 <label class="label-custom" for="payment-method-entry">Método de pago</label>
                 <div class="cmb">
                     <select id="payment-method-entry">
@@ -30,10 +30,10 @@
                     </select>
                     <i class='bx bx-chevron-down'></i>
                 </div>
-            </div>
-            <div class="div-percentage div-elements-primary">
-                <label class="label-custom" for="percentage-input">Porcentaje de impuesto</label>
-                <input class="input-field" id="percentage-input" type="number" placeholder="5%">
+                <div class="div-elements-primary" id="percentage-div">
+                    <label class="label-custom" for="percentage-input">Porcentaje de impuesto</label>
+                    <input class="input-field" id="percentage-input" type="number" placeholder="5%">
+                </div>
             </div>
             <button class="btn-custom btn-primary" id="add-sale-btn">Agregar Venta</button>
             <div class="div-elements-secondary">
@@ -55,7 +55,7 @@
         </section>
         <section class="section-dashboard">
             <span class="span-title">Dashboard Ventas</span>
-            <div class="div-dashboard-table" id="dashboard-table">
+            <div class="div-dashboard-table" id="dashboard-table-div">
                 <div class="header-dashboard header-description">Descripción</div>
                 <div class="header-dashboard header-amount">Monto</div>
                 <div class="header-dashboard header-payment-method">
@@ -87,7 +87,7 @@
                 <div class="total-title">Total</div>
                 <div class="total-amount">$0</div>
             </div>
-            <div class="div-dashboard-cards">
+            <div class="div-dashboard-cards" id="dashboard-cards-div">
                 <div class="dashboard-cmb-cards">
                     <span>Filtro:</span>
                     <div class="cmb dashboard-cmb">

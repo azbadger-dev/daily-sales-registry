@@ -47,7 +47,7 @@ footer{
     color: var(--texcolor-light);
     padding: 2rem;
     grid-template-columns: auto;
-    grid-template-rows: repeat(4, max-content) 5.5rem repeat(3, max-content);
+    grid-template-rows: repeat(3, max-content) 5.6rem repeat(3, max-content);
     gap: 1.5rem;
 }
 
@@ -126,6 +126,15 @@ footer{
 
 #prev-cash-save-btn{
     display: none;
+}
+
+.div-payment-method{
+    grid-template-rows: repeat(auto, max-content);
+}
+
+#percentage-div{
+    display: none;
+    margin-top: 1rem;
 }
 
 .cmb{
