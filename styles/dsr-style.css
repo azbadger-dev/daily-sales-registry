@@ -24,6 +24,7 @@ html, body{
     --red-color-primary: #e7191f;
     --red-color-accent: #ff6d72;
     --titles-text-size: 1.2rem;
+    --empty-sales-display: grid;
 }
 
 
@@ -378,6 +379,16 @@ footer{
     
     .sale-content span{
         margin-right: 0.5rem;
+    }
+
+    .empty-sales{
+        grid-area: sale_content;
+        display: var(--empty-sales-display);
+        font-size: var(--titles-text-size);
+        font-weight: 100;
+        justify-content: center;
+        align-items: center;
+        height: 5rem;
     }
 
     .btn-trash{
