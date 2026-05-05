@@ -26,27 +26,19 @@ html, body{
     --titles-text-size: 1.2rem;
 }
 
-@media(hover: hover){
-    .btn-custom:hover{
-        background-color: var(--accent-color);
-    }
-
-    .cmb select:hover{
-        background-color: var(--accent-color);
-    }
-
-    .btn-trash:hover{
-        background-color: var(--red-color-accent);
-    }
-}
 
 main {
     display: grid;
     background-color: var(--bg-color);
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(2, auto) 2rem;
     grid-template-areas:
     "form"
-    "dashboard";
+    "dashboard"
+    "footer";
+}
+
+footer{
+    grid-area: footer;
 }
 
 .section-entry{
@@ -320,10 +312,20 @@ main {
 }
 
 @media (min-width: 768px){
+    .btn-custom:hover, .cmb select:hover{
+        background-color: var(--accent-color);
+    }
+
+    .btn-trash:hover{
+        background-color: var(--red-color-accent);
+    }
+
     main{
         grid-template-columns: 2fr 3fr;
-        grid-template-rows: auto;
-        grid-template-areas: "form dashboard"; 
+        grid-template-rows: auto 3rem;
+        grid-template-areas:
+        "form dashboard"
+        "footer footer"; 
     }
     
     .section-entry{
