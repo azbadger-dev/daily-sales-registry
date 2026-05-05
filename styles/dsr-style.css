@@ -277,6 +277,20 @@ footer{
     color: var(--texcolor-dark);
 }
 
+.empty-sales{
+    display: var(--empty-sales-display);
+    font-size: var(--titles-text-size);
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.6rem;
+    background-color: var(--texcolor-light);
+    color: var(--texcolor-dark);
+}
+
 .btn-trash{
     grid-area: del_btn;
     color: var(--texcolor-light);
@@ -316,7 +330,7 @@ footer{
     padding: 1.5rem 0;
 }
 
-.dashboard-cards, .dashboard-card-total, .div-dashboard-table, .textarea-custom{
+.dashboard-cards, .dashboard-card-total, .div-dashboard-table, .textarea-custom, .empty-sales{
     /* offset-x | offset-y | blur-radius | spread-radius | color */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
@@ -383,12 +397,10 @@ footer{
 
     .empty-sales{
         grid-area: sale_content;
-        display: var(--empty-sales-display);
-        font-size: var(--titles-text-size);
-        font-weight: 100;
-        justify-content: center;
-        align-items: center;
         height: 5rem;
+        box-shadow: none;
+        padding: none;
+        border: none;
     }
 
     .btn-trash{
