@@ -321,14 +321,6 @@ footer{
 }
 
 @media (min-width: 768px){
-    .btn-custom:hover, .cmb select:hover{
-        background-color: var(--accent-color);
-    }
-
-    .btn-trash:hover{
-        background-color: var(--red-color-accent);
-    }
-
     main{
         grid-template-columns: 2fr 3fr;
         grid-template-rows: auto 3rem;
@@ -340,11 +332,11 @@ footer{
     .section-entry{
         padding: 2rem 0 2rem 3.6rem;
     }
-
+    
     .div-dashboard-cards{
         display: none;
     }
-
+    
     .div-dashboard-table{
         display: grid;
         grid-template-columns: repeat(2, max-content) fit-content(18rem) 1fr;
@@ -361,15 +353,15 @@ footer{
         border-radius: 0.6rem;
         padding: 0.6rem;
     }
-
+    
     .header-description{
         grid-area: header_description;
     }
-
+    
     .header-amount{
         grid-area: header_amount;
     }
-
+    
     .header-payment-method{
         grid-area: header_payment_method;
         display: flex;
@@ -378,7 +370,7 @@ footer{
         justify-self: start;
         gap: 0.5rem;
     }
-
+    
     .sale-content{
         display: contents;
         grid-area: sale_content;
@@ -387,8 +379,16 @@ footer{
     .btn-trash{
         grid-area: auto;
     }
-}
+
+    .btn-custom:hover{
+        background-color: var(--accent-color);
+    }
     
+    .btn-trash:hover{
+        background-color: var(--red-color-accent);
+    }
+}
+
 @media (min-width: 1024px) {
     .div-elements-secondary{
         grid-template-columns: 14rem auto;
