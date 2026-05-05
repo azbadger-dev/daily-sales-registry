@@ -36,15 +36,13 @@ const addSale = () => {
 const updateView = () => {
     const oldSalesTable = document.querySelectorAll('.created-element');
     oldSalesTable.forEach(sale => { sale.remove() });
+
     const emptySales = document.querySelectorAll('empty-sales');
     if (salesList.length === 0) {
         document.documentElement.style.setProperty('--empty-sales-display', 'grid')
         return;
     }
-
     document.documentElement.style.setProperty('--empty-sales-display', 'none')
-
-    console.log(dashBoardTableDiv)
 
     const filteredValue = parseInt(paymentMethodTable.value);
     filteredSalesList = (filteredValue === 1) ? salesList : salesList.filter(
@@ -194,7 +192,6 @@ const generateWhatsAppReport = () => {
     let report = `*Registro del día ${dateFormat}*\n`
 
     Object.values(PAYMENT_METHODS).forEach(method => {
-        console.log(method);
         const filtered = salesList.filter(s => s.method === method.name);
         if (filtered.length > 0) {
             const subtotal = filtered.reduce((acc, s) => acc + s.amount, 0);
@@ -215,6 +212,9 @@ const generateWhatsAppReport = () => {
 
     const reportOutput = document.getElementById('report-output-textarea');
     reportOutput.value = report;
+
+    salesList = [];
+    updateView();
 };
 
 // Inputs
