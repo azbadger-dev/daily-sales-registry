@@ -27,6 +27,7 @@ const addSale = () => {
     };
 
     salesList.push(newSale);
+    saveData();
 
     // Limpiar campos y actualizar vista
     clearInputs();
@@ -37,7 +38,7 @@ const updateView = () => {
     const oldSalesTable = document.querySelectorAll('.created-element');
     oldSalesTable.forEach(sale => { sale.remove() });
 
-    const emptySales = document.querySelectorAll('empty-sales');
+    const emptySales = document.querySelectorAll('.empty-sales');
     if (salesList.length === 0) {
         document.documentElement.style.setProperty('--empty-sales-display', 'grid')
         return;
@@ -142,6 +143,7 @@ const renderTotalCards = (filtered) => {
 
 const deleteSale = (id) => {
     salesList = salesList.filter(sale => sale.id !== id);
+    saveData();
     updateView();
 };
 
@@ -160,14 +162,37 @@ const addCash = () => {
         cashAdditions += parseFloat(cashAddInput.value);
     } else { alert("Por favor, ingresa un monto válido.") };
     clearInputs();
+    saveData();
 };
 
 const withdrawalCash = () => {
-    if (cashWithdrawalInput.value && parseFloat(cashWithdrawalInput.value) > 0) {
-        cashWithdrawals += parseFloat(cashWithdrawalInput.value);
-    } else { alert("Por favor, ingresa un monto válido.") };
+    if (!cashWithdrawalInput.value && !parseFloat(cashWithdrawalInput.value) > 0) {
+        alert("Por favor, ingresa un monto válido.");
+        return
+    } else if (calculateCashStatus().total < parseFloat(cashWithdrawalInput.value)) {
+        alert("El monto a retirar no puede ser mayor al disponible en caja.");
+        return
+    }
+    cashWithdrawals += parseFloat(cashWithdrawalInput.value);
     clearInputs();
+    saveData();
 };
+
+const editInitialCash = () => {
+    prevCashInput.disabled = false;
+    btnPrevCashEdit.style.display = 'none';
+    btnPrevCashSave.style.display = 'block';
+}
+
+const saveInitialCash = () => {
+    if (prevCashInput.value && parseFloat(prevCashInput.value) > 0) {
+        prevCashInput.disabled = true;
+        btnPrevCashEdit.style.display = 'block';
+        btnPrevCashSave.style.display = 'none';
+        cashInitial = parseFloat(prevCashInput.value);
+    } else { alert("Por favor, ingresa un monto válido.") };
+    saveData();
+}
 
 const calculateCashStatus = () => {
     const totalCashSales = salesList.filter(sale => sale.method === 'Efectivo')
@@ -177,7 +202,7 @@ const calculateCashStatus = () => {
 
     return {
         sales: totalCashSales,
-        total: currentInCash
+        total: currentInCash,
     }
 
 };
@@ -213,8 +238,66 @@ const generateWhatsAppReport = () => {
     const reportOutput = document.getElementById('report-output-textarea');
     reportOutput.value = report;
 
-    salesList = [];
+    alert("Día cerrado con éxito. El reporte está listo en el cuadro de texto.");
+};
+
+const saveData = () => {
+    // Convertimos el array de objetos a un String JSON para poder guardarlo
+    localStorage.setItem('sales_rgl', JSON.stringify(salesList));
+
+    // También guardamos los valores de caja
+    const cashData = {
+        initial: cashInitial,
+        add: cashAdditions,
+        withdraw: cashWithdrawals
+    };
+    localStorage.setItem('cash_rgl', JSON.stringify(cashData));
+};
+
+const loadData = () => {
+    const savedSales = localStorage.getItem('sales_rgl');
+    const savedCash = localStorage.getItem('cash_rgl');
+
+    // Si hay datos guardados, los transformamos de vuelta a objetos/arrays
+    if (savedSales) {
+        salesList = JSON.parse(savedSales);
+    }
+
+    if (savedCash) {
+        const cash = JSON.parse(savedCash);
+        cashInitial = cash.initial;
+        cashAdditions = cash.add;
+        cashWithdrawals = cash.withdraw;
+
+        // Si tienes un input para el saldo anterior, actualízalo
+        prevCashInput.value = cashInitial;
+    }
+
+    // Una vez cargado todo, actualizamos la interfaz
     updateView();
+};
+
+const finishDay = () => {
+    if (salesList.length === 0) {
+        alert("No hay ventas registradas para cerrar el día.");
+        return;
+    }
+
+    const confirmClose = confirm("¿Estás seguro de cerrar el día? Se borrarán las ventas actuales.");
+
+    if (confirmClose) {
+        generateWhatsAppReport();
+
+        salesList = [];
+        cashAdditions = 0;
+        cashWithdrawals = 0;
+        cashInitial = 0;
+
+        localStorage.removeItem('sales_rgl');
+        localStorage.removeItem('cash_rgl')
+
+        updateView();
+    }
 };
 
 // Inputs
@@ -223,6 +306,7 @@ const amountInput = document.getElementById('amount-input');
 const percentageInput = document.getElementById('percentage-input')
 const cashWithdrawalInput = document.getElementById('cash-withdrawal-input');
 const cashAddInput = document.getElementById('cash-add-input');
+const prevCashInput = document.getElementById('prev-cash-input');
 
 // Selects
 const paymentMethodEntry = document.getElementById('payment-method-entry');
@@ -247,11 +331,11 @@ btnCashWithdrawal.addEventListener('click', () => { withdrawalCash() });
 const btnCashAdd = document.getElementById('cash-add-btn');
 btnCashAdd.addEventListener('click', () => { addCash() });
 const btnPrevCashEdit = document.getElementById('prev-cash-edit-btn');
-btnPrevCashEdit.addEventListener('click', () => { });
+btnPrevCashEdit.addEventListener('click', () => { editInitialCash() });
 const btnPrevCashSave = document.getElementById('prev-cash-save-btn');
-btnPrevCashSave.addEventListener('click', () => { });
+btnPrevCashSave.addEventListener('click', () => { saveInitialCash() });
 const btnReportOutput = document.getElementById('report-output-btn');
-btnReportOutput.addEventListener('click', () => { generateWhatsAppReport() });
+btnReportOutput.addEventListener('click', () => { finishDay() });
 
 // Containers
 const percentageDiv = document.getElementById('percentage-div');
@@ -273,49 +357,51 @@ let cashInitial = 0;
 let cashAdditions = 0;
 let cashWithdrawals = 0;
 
-salesList = [
-    {
-        id: 1778015330898,
-        description: "Switch",
-        amount: 367.5,
-        method: "Tarjeta",
-        icon: "bx-credit-card"
-    },
-    {
-        id: 1778015349175,
-        description: "mario",
-        amount: 40,
-        method: "Efectivo",
-        icon: "bx-money"
-    },
-    {
-        id: 1778015364900,
-        description: "mk 9",
-        amount: 25,
-        method: "Transferencia",
-        icon: "bx-transfer"
-    },
-    {
-        id: 1778015379492,
-        description: "call of duty",
-        amount: 25,
-        method: "Yappy",
-        icon: "bx-mobile-alt"
-    },
-    {
-        id: 1778015401416,
-        description: "gamecube",
-        amount: 400,
-        method: "Yappy Comercial",
-        icon: "bx-store"
-    },
-    {
-        id: 1778015427929,
-        description: "pokemon rubi",
-        amount: 42,
-        method: "Tarjeta",
-        icon: "bx-credit-card"
-    }
-];
+// salesList = [
+//     {
+//         id: 1778015330898,
+//         description: "Switch",
+//         amount: 367.5,
+//         method: "Tarjeta",
+//         icon: "bx-credit-card"
+//     },
+//     {
+//         id: 1778015349175,
+//         description: "mario",
+//         amount: 40,
+//         method: "Efectivo",
+//         icon: "bx-money"
+//     },
+//     {
+//         id: 1778015364900,
+//         description: "mk 9",
+//         amount: 25,
+//         method: "Transferencia",
+//         icon: "bx-transfer"
+//     },
+//     {
+//         id: 1778015379492,
+//         description: "call of duty",
+//         amount: 25,
+//         method: "Yappy",
+//         icon: "bx-mobile-alt"
+//     },
+//     {
+//         id: 1778015401416,
+//         description: "gamecube",
+//         amount: 400,
+//         method: "Yappy Comercial",
+//         icon: "bx-store"
+//     },
+//     {
+//         id: 1778015427929,
+//         description: "pokemon rubi",
+//         amount: 42,
+//         method: "Tarjeta",
+//         icon: "bx-credit-card"
+//     }
+// ];
 
-updateView();
+// saveData();
+// updateView();
+loadData();
