@@ -242,10 +242,9 @@ const generateWhatsAppReport = () => {
 };
 
 const saveData = () => {
-    // Convertimos el array de objetos a un String JSON para poder guardarlo
+
     localStorage.setItem('sales_rgl', JSON.stringify(salesList));
 
-    // También guardamos los valores de caja
     const cashData = {
         initial: cashInitial,
         add: cashAdditions,
@@ -258,7 +257,6 @@ const loadData = () => {
     const savedSales = localStorage.getItem('sales_rgl');
     const savedCash = localStorage.getItem('cash_rgl');
 
-    // Si hay datos guardados, los transformamos de vuelta a objetos/arrays
     if (savedSales) {
         salesList = JSON.parse(savedSales);
     }
@@ -269,11 +267,8 @@ const loadData = () => {
         cashAdditions = cash.add;
         cashWithdrawals = cash.withdraw;
 
-        // Si tienes un input para el saldo anterior, actualízalo
         prevCashInput.value = cashInitial;
     }
-
-    // Una vez cargado todo, actualizamos la interfaz
     updateView();
 };
 
@@ -357,51 +352,4 @@ let cashInitial = 0;
 let cashAdditions = 0;
 let cashWithdrawals = 0;
 
-// salesList = [
-//     {
-//         id: 1778015330898,
-//         description: "Switch",
-//         amount: 367.5,
-//         method: "Tarjeta",
-//         icon: "bx-credit-card"
-//     },
-//     {
-//         id: 1778015349175,
-//         description: "mario",
-//         amount: 40,
-//         method: "Efectivo",
-//         icon: "bx-money"
-//     },
-//     {
-//         id: 1778015364900,
-//         description: "mk 9",
-//         amount: 25,
-//         method: "Transferencia",
-//         icon: "bx-transfer"
-//     },
-//     {
-//         id: 1778015379492,
-//         description: "call of duty",
-//         amount: 25,
-//         method: "Yappy",
-//         icon: "bx-mobile-alt"
-//     },
-//     {
-//         id: 1778015401416,
-//         description: "gamecube",
-//         amount: 400,
-//         method: "Yappy Comercial",
-//         icon: "bx-store"
-//     },
-//     {
-//         id: 1778015427929,
-//         description: "pokemon rubi",
-//         amount: 42,
-//         method: "Tarjeta",
-//         icon: "bx-credit-card"
-//     }
-// ];
-
-// saveData();
-// updateView();
 loadData();
