@@ -336,6 +336,11 @@ footer{
     padding-top: 1rem;
 }
 
+.div-dashboard-output div{
+    width: 100%;
+    position: relative;
+}
+
 .textarea-custom{
     resize: vertical;
     width: 100%;
@@ -343,6 +348,26 @@ footer{
     padding: 0.6rem;
     border: none;
     border-radius: 0.6rem;
+}
+
+#quick-copy-btn{
+    position: absolute;
+    right: 0.6rem;
+    bottom: 1rem;
+    background-color: var(--texcolor-light);
+    border: none;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 0.8rem;
+    font-size: var(--titles-text-size);
+    color: var(--texcolor-dark);
+    transition: .3s ease;
+    cursor: pointer;
+}
+
+#quick-copy-btn:active{
+    background-color: var(--accent-color);
+    color: var(--texcolor-light);
 }
 
 #report-output-btn{
@@ -432,6 +457,11 @@ footer{
     
     .btn-trash:hover{
         background-color: var(--red-color-accent);
+    }
+
+    #quick-copy-btn:hover{
+        background-color: var(--accent-color);
+        color: var(--texcolor-light);
     }
 }
 

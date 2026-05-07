@@ -239,11 +239,33 @@ const generateWhatsAppReport = () => {
     report += `\n- $${cashWithdrawals.toFixed(2)} - Efectivo Retirado`
     report += `\n\n*Total en caja: $${cashStatus.total.toFixed(2)}*`;
 
-    const reportOutput = document.getElementById('report-output-textarea');
     reportOutput.value = report;
 
     alert("Día cerrado con éxito. El reporte está listo en el cuadro de texto.");
 };
+
+const quickCopy = () => {
+    const textToCopy = reportOutput.value;
+    if (textToCopy) {
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+
+                const originalText = btnCopy.innerHTML;
+                btnCopy.innerHTML = `<i class="bx bx-check"></i>`;
+                btnCopy.style.backgroundColor = '#4CAF50';
+                btnCopy.style.color = '#ffffff';
+
+                setTimeout(() => {
+                    btnCopy.innerHTML = originalText;
+                    btnCopy.style.backgroundColor = '';
+                    btnCopy.style.color = '';
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Error al copiar: ', err);
+            });
+    }
+}
 
 const saveData = () => {
     localStorage.setItem('sales_rgl', JSON.stringify(salesList));
@@ -307,6 +329,9 @@ const cashWithdrawalInput = document.getElementById('cash-withdrawal-input');
 const cashAddInput = document.getElementById('cash-add-input');
 const prevCashInput = document.getElementById('prev-cash-input');
 
+// textarea
+const reportOutput = document.getElementById('report-output-textarea');
+
 // Selects
 const paymentMethodEntry = document.getElementById('payment-method-entry');
 paymentMethodEntry.addEventListener('change', () => { percentageDisplayStatus() });
@@ -335,6 +360,8 @@ const btnPrevCashSave = document.getElementById('prev-cash-save-btn');
 btnPrevCashSave.addEventListener('click', () => { saveInitialCash() });
 const btnReportOutput = document.getElementById('report-output-btn');
 btnReportOutput.addEventListener('click', () => { finishDay() });
+const btnCopy = document.getElementById('quick-copy-btn');
+btnCopy.addEventListener('click', () => { quickCopy() });
 
 // Containers
 const percentageDiv = document.getElementById('percentage-div');
