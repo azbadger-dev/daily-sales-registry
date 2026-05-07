@@ -86,8 +86,10 @@ const renderCard = (sale) => {
     card.innerHTML = `
         <label class="label-description">Descripción:</label>
         <span class="span-description">${sale.description}</span>
+        <hr>
         <label class="label-amount">Monto:</label>
         <span class="span-amount">$${sale.amount.toFixed(2)}</span>
+        <hr>
         <label class="label-payment-method">Método:</label>
         <span class="span-payment-method">${sale.method} <i class='bx ${sale.icon}'></i></span>
         <button class="btn-trash" onclick="deleteSale(${sale.id})">
