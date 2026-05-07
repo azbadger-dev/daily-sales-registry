@@ -234,9 +234,9 @@ const generateWhatsAppReport = () => {
     report += `\n*Total Del Día = $${totalSales.toFixed(2)}*`;
     report += `\n\n*CAJA MENUDA*`;
     report += `\nSaldo anterior: $${cashInitial.toFixed(2)}`;
-    report += `\n+ $${cashStatus.sales.toFixed(2)} - Ventas en Efectivo`
-    report += `\n+ $${cashAdditions.toFixed(2)} - Efectivo Agregado`
-    report += `\n- $${cashWithdrawals.toFixed(2)} - Efectivo Retirado`
+    report += `\n+$${cashStatus.sales.toFixed(2)} - Ventas en Efectivo`
+    report += `\n+$${cashAdditions.toFixed(2)} - Efectivo Agregado`
+    report += `\n-$${cashWithdrawals.toFixed(2)} - Efectivo Retirado`
     report += `\n\n*Total en caja: $${cashStatus.total.toFixed(2)}*`;
 
     reportOutput.value = report;
