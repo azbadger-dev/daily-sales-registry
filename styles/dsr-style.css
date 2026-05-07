@@ -342,17 +342,41 @@ footer{
 }
 
 .textarea-custom{
-    resize: vertical;
+    resize: none;
     width: 100%;
-    min-height: 10rem;
+    height: 10rem;
     padding: 0.6rem;
     border: none;
     border-radius: 0.6rem;
+    z-index: 1;
+}
+
+.textarea-custom::-webkit-scrollbar {
+    width: 0.9rem;
+}
+
+.textarea-custom::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.textarea-custom::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border: 0.18rem solid var(--texcolor-light);
+    border-radius: 0.45rem;
+    transition: background-color 0.3s ease;
+}
+
+.textarea-custom::-webkit-scrollbar-thumb:active {
+    background-color: var(--bg-color);
+}
+
+.textarea-custom::-webkit-scrollbar-button {
+    display: none;
 }
 
 #quick-copy-btn{
     position: absolute;
-    right: 0.6rem;
+    right: 0.8rem;
     bottom: 1rem;
     background-color: var(--texcolor-light);
     border: none;
