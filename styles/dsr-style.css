@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -11,6 +12,12 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+* {
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
 html, body{
     height: 100%;
     width: 100%;
@@ -19,6 +26,7 @@ html, body{
 :root{
     --bg-color: #8f8f8f;
     --accent-color: #cccccc;
+    --light-color: #dddddd;
     --texcolor-light: #ffffff;
     --texcolor-dark: #4f4f4f;
     --red-color-primary: #e7191f;
@@ -27,6 +35,12 @@ html, body{
     --empty-sales-display: grid;
 }
 
+hr {
+    height: 0.1rem;
+    border: none;
+    background-color: var(--light-color);
+    border-radius: 0.05rem;
+}
 
 main {
     display: grid;
@@ -220,10 +234,12 @@ footer{
 .dashboard-cards{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, max-content);
+    grid-template-rows: repeat(6, max-content);
     grid-template-areas:
     "description_title description_content"
+    ". ."
     "amount_title amount_content"
+    ". ."
     "payment_method_title payment_method_content"
     ". del_btn";
     gap: 0.5rem;
@@ -233,6 +249,10 @@ footer{
     background-color: var(--texcolor-light);
     color: var(--texcolor-dark);
 
+}
+
+.dashboard-cards hr{
+    grid-column: span 2;
 }
 
 .label-description{
@@ -279,7 +299,6 @@ footer{
 
 .empty-sales{
     display: var(--empty-sales-display);
-    font-size: var(--titles-text-size);
     font-weight: 100;
     justify-content: center;
     align-items: center;
@@ -317,6 +336,11 @@ footer{
     padding-top: 1rem;
 }
 
+.div-dashboard-output div{
+    width: 100%;
+    position: relative;
+}
+
 .textarea-custom{
     resize: vertical;
     width: 100%;
@@ -324,6 +348,26 @@ footer{
     padding: 0.6rem;
     border: none;
     border-radius: 0.6rem;
+}
+
+#quick-copy-btn{
+    position: absolute;
+    right: 0.6rem;
+    bottom: 1rem;
+    background-color: var(--texcolor-light);
+    border: none;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 0.8rem;
+    font-size: var(--titles-text-size);
+    color: var(--texcolor-dark);
+    transition: .3s ease;
+    cursor: pointer;
+}
+
+#quick-copy-btn:active{
+    background-color: var(--accent-color);
+    color: var(--texcolor-light);
 }
 
 #report-output-btn{
@@ -413,6 +457,11 @@ footer{
     
     .btn-trash:hover{
         background-color: var(--red-color-accent);
+    }
+
+    #quick-copy-btn:hover{
+        background-color: var(--accent-color);
+        color: var(--texcolor-light);
     }
 }
 

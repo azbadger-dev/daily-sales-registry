@@ -4,7 +4,6 @@ const addSale = () => {
     const methodKey = paymentMethodEntry.value;
     const methodData = PAYMENT_METHODS[methodKey];
 
-    // Validación básica
     if (!description || isNaN(amount) || amount <= 0) {
         alert("Por favor, ingresa una descripción y un monto válido.");
         return;
@@ -12,14 +11,13 @@ const addSale = () => {
 
     let finalAmount = amount;
 
-    // Lógica de impuesto usando el objeto de configuración
     if (methodData.acceptsTax) {
-        const taxPercent = parseFloat(percentageInput.value) || 5; // 5% por defecto
+        const taxPercent = parseFloat(percentageInput.value) || 5;
         finalAmount = amount + (amount * (taxPercent / 100));
     }
 
     const newSale = {
-        id: Date.now(), // Genera un ID único basado en tiempo
+        id: Date.now(),
         description,
         amount: finalAmount,
         method: methodData.name,
@@ -29,9 +27,10 @@ const addSale = () => {
     salesList.push(newSale);
     saveData();
 
-    // Limpiar campos y actualizar vista
     clearInputs();
     updateView();
+
+    alert("Venta agregada con éxito. Esta se encuentra en reflejada en la tabla de ventas.");
 };
 
 const updateView = () => {
@@ -50,20 +49,17 @@ const updateView = () => {
         sale => sale.method === PAYMENT_METHODS[(filteredValue - 1)].name
     );
 
-    // 3. Recorremos la lista de ventas y generamos los elementos
     filteredSalesList.forEach(sale => {
         renderTableRow(sale);
         renderCard(sale);
     });
 
-    // 4. Al final, actualizamos el total acumulado
     updateTotal();
 };
 
-// Genera la fila para la tabla (Desktop)
 const renderTableRow = (sale) => {
     const row = document.createElement('div');
-    row.classList.add('sale-content', 'created-element'); // La clase que definiste en tu CSS Grid
+    row.classList.add('sale-content', 'created-element');
 
     row.innerHTML = `
         <span>${sale.description}</span>
@@ -73,10 +69,16 @@ const renderTableRow = (sale) => {
     `;
     const btnTrash = row.querySelector('.btn-trash');
     btnTrash.addEventListener('click', () => { deleteSale(sale.id) })
+
+    const lineDiv = document.createElement('div');
+    lineDiv.classList.add('sale-content', 'created-element');
+    const line = document.createElement('hr');
+    line.style.gridColumn = 'span 4';
+    lineDiv.append(line);
     dashBoardTableDiv.appendChild(row);
+    dashBoardTableDiv.appendChild(lineDiv);
 };
 
-// Genera la tarjeta para móvil
 const renderCard = (sale) => {
     const card = document.createElement('div');
     card.classList.add('dashboard-cards', 'created-element');
@@ -84,8 +86,10 @@ const renderCard = (sale) => {
     card.innerHTML = `
         <label class="label-description">Descripción:</label>
         <span class="span-description">${sale.description}</span>
+        <hr>
         <label class="label-amount">Monto:</label>
         <span class="span-amount">$${sale.amount.toFixed(2)}</span>
+        <hr>
         <label class="label-payment-method">Método:</label>
         <span class="span-payment-method">${sale.method} <i class='bx ${sale.icon}'></i></span>
         <button class="btn-trash" onclick="deleteSale(${sale.id})">
@@ -227,22 +231,43 @@ const generateWhatsAppReport = () => {
 
     const cashStatus = calculateCashStatus();
 
-    report += `\n*Total Del Día = $${totalSales.toFixed(2)}`;
+    report += `\n*Total Del Día = $${totalSales.toFixed(2)}*`;
     report += `\n\n*CAJA MENUDA*`;
     report += `\nSaldo anterior: $${cashInitial.toFixed(2)}`;
-    report += `\n+ $${cashStatus.sales.toFixed(2)} - Ventas en Efectivo`
-    report += `\n+ $${cashAdditions.toFixed(2)} - Efectivo Agregado`
-    report += `\n- $${cashWithdrawals.toFixed(2)} - Efectivo Retirado`
+    report += `\n+$${cashStatus.sales.toFixed(2)} - Ventas en Efectivo`
+    report += `\n+$${cashAdditions.toFixed(2)} - Efectivo Agregado`
+    report += `\n-$${cashWithdrawals.toFixed(2)} - Efectivo Retirado`
     report += `\n\n*Total en caja: $${cashStatus.total.toFixed(2)}*`;
 
-    const reportOutput = document.getElementById('report-output-textarea');
     reportOutput.value = report;
 
     alert("Día cerrado con éxito. El reporte está listo en el cuadro de texto.");
 };
 
-const saveData = () => {
+const quickCopy = () => {
+    const textToCopy = reportOutput.value;
+    if (textToCopy) {
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
 
+                const originalText = btnCopy.innerHTML;
+                btnCopy.innerHTML = `<i class="bx bx-check"></i>`;
+                btnCopy.style.backgroundColor = '#4CAF50';
+                btnCopy.style.color = '#ffffff';
+
+                setTimeout(() => {
+                    btnCopy.innerHTML = originalText;
+                    btnCopy.style.backgroundColor = '';
+                    btnCopy.style.color = '';
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Error al copiar: ', err);
+            });
+    }
+}
+
+const saveData = () => {
     localStorage.setItem('sales_rgl', JSON.stringify(salesList));
 
     const cashData = {
@@ -303,6 +328,9 @@ const cashWithdrawalInput = document.getElementById('cash-withdrawal-input');
 const cashAddInput = document.getElementById('cash-add-input');
 const prevCashInput = document.getElementById('prev-cash-input');
 
+// textarea
+const reportOutput = document.getElementById('report-output-textarea');
+
 // Selects
 const paymentMethodEntry = document.getElementById('payment-method-entry');
 paymentMethodEntry.addEventListener('change', () => { percentageDisplayStatus() });
@@ -331,6 +359,8 @@ const btnPrevCashSave = document.getElementById('prev-cash-save-btn');
 btnPrevCashSave.addEventListener('click', () => { saveInitialCash() });
 const btnReportOutput = document.getElementById('report-output-btn');
 btnReportOutput.addEventListener('click', () => { finishDay() });
+const btnCopy = document.getElementById('quick-copy-btn');
+btnCopy.addEventListener('click', () => { quickCopy() });
 
 // Containers
 const percentageDiv = document.getElementById('percentage-div');
