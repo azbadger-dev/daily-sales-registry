@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -11,6 +12,12 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+* {
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
 html, body{
     height: 100%;
     width: 100%;
@@ -19,6 +26,7 @@ html, body{
 :root{
     --bg-color: #8f8f8f;
     --accent-color: #cccccc;
+    --light-color: #dddddd;
     --texcolor-light: #ffffff;
     --texcolor-dark: #4f4f4f;
     --red-color-primary: #e7191f;
@@ -27,6 +35,12 @@ html, body{
     --empty-sales-display: grid;
 }
 
+hr {
+    height: 0.1rem;
+    border: none;
+    background-color: var(--light-color);
+    border-radius: 0.05rem;
+}
 
 main {
     display: grid;
@@ -279,7 +293,6 @@ footer{
 
 .empty-sales{
     display: var(--empty-sales-display);
-    font-size: var(--titles-text-size);
     font-weight: 100;
     justify-content: center;
     align-items: center;

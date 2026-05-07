@@ -4,7 +4,6 @@ const addSale = () => {
     const methodKey = paymentMethodEntry.value;
     const methodData = PAYMENT_METHODS[methodKey];
 
-    // Validación básica
     if (!description || isNaN(amount) || amount <= 0) {
         alert("Por favor, ingresa una descripción y un monto válido.");
         return;
@@ -12,14 +11,13 @@ const addSale = () => {
 
     let finalAmount = amount;
 
-    // Lógica de impuesto usando el objeto de configuración
     if (methodData.acceptsTax) {
-        const taxPercent = parseFloat(percentageInput.value) || 5; // 5% por defecto
+        const taxPercent = parseFloat(percentageInput.value) || 5;
         finalAmount = amount + (amount * (taxPercent / 100));
     }
 
     const newSale = {
-        id: Date.now(), // Genera un ID único basado en tiempo
+        id: Date.now(),
         description,
         amount: finalAmount,
         method: methodData.name,
@@ -29,9 +27,10 @@ const addSale = () => {
     salesList.push(newSale);
     saveData();
 
-    // Limpiar campos y actualizar vista
     clearInputs();
     updateView();
+
+    alert("Venta agregada con éxito. Esta se encuentra en reflejada en la tabla de ventas.");
 };
 
 const updateView = () => {
@@ -50,20 +49,17 @@ const updateView = () => {
         sale => sale.method === PAYMENT_METHODS[(filteredValue - 1)].name
     );
 
-    // 3. Recorremos la lista de ventas y generamos los elementos
     filteredSalesList.forEach(sale => {
         renderTableRow(sale);
         renderCard(sale);
     });
 
-    // 4. Al final, actualizamos el total acumulado
     updateTotal();
 };
 
-// Genera la fila para la tabla (Desktop)
 const renderTableRow = (sale) => {
     const row = document.createElement('div');
-    row.classList.add('sale-content', 'created-element'); // La clase que definiste en tu CSS Grid
+    row.classList.add('sale-content', 'created-element');
 
     row.innerHTML = `
         <span>${sale.description}</span>
@@ -73,10 +69,16 @@ const renderTableRow = (sale) => {
     `;
     const btnTrash = row.querySelector('.btn-trash');
     btnTrash.addEventListener('click', () => { deleteSale(sale.id) })
+
+    const lineDiv = document.createElement('div');
+    lineDiv.classList.add('sale-content', 'created-element');
+    const line = document.createElement('hr');
+    line.style.gridColumn = 'span 4';
+    lineDiv.append(line);
     dashBoardTableDiv.appendChild(row);
+    dashBoardTableDiv.appendChild(lineDiv);
 };
 
-// Genera la tarjeta para móvil
 const renderCard = (sale) => {
     const card = document.createElement('div');
     card.classList.add('dashboard-cards', 'created-element');
@@ -227,7 +229,7 @@ const generateWhatsAppReport = () => {
 
     const cashStatus = calculateCashStatus();
 
-    report += `\n*Total Del Día = $${totalSales.toFixed(2)}`;
+    report += `\n*Total Del Día = $${totalSales.toFixed(2)}*`;
     report += `\n\n*CAJA MENUDA*`;
     report += `\nSaldo anterior: $${cashInitial.toFixed(2)}`;
     report += `\n+ $${cashStatus.sales.toFixed(2)} - Ventas en Efectivo`
@@ -242,10 +244,8 @@ const generateWhatsAppReport = () => {
 };
 
 const saveData = () => {
-    // Convertimos el array de objetos a un String JSON para poder guardarlo
     localStorage.setItem('sales_rgl', JSON.stringify(salesList));
 
-    // También guardamos los valores de caja
     const cashData = {
         initial: cashInitial,
         add: cashAdditions,
@@ -258,7 +258,6 @@ const loadData = () => {
     const savedSales = localStorage.getItem('sales_rgl');
     const savedCash = localStorage.getItem('cash_rgl');
 
-    // Si hay datos guardados, los transformamos de vuelta a objetos/arrays
     if (savedSales) {
         salesList = JSON.parse(savedSales);
     }
@@ -269,11 +268,9 @@ const loadData = () => {
         cashAdditions = cash.add;
         cashWithdrawals = cash.withdraw;
 
-        // Si tienes un input para el saldo anterior, actualízalo
         prevCashInput.value = cashInitial;
     }
 
-    // Una vez cargado todo, actualizamos la interfaz
     updateView();
 };
 
@@ -357,51 +354,51 @@ let cashInitial = 0;
 let cashAdditions = 0;
 let cashWithdrawals = 0;
 
-// salesList = [
-//     {
-//         id: 1778015330898,
-//         description: "Switch",
-//         amount: 367.5,
-//         method: "Tarjeta",
-//         icon: "bx-credit-card"
-//     },
-//     {
-//         id: 1778015349175,
-//         description: "mario",
-//         amount: 40,
-//         method: "Efectivo",
-//         icon: "bx-money"
-//     },
-//     {
-//         id: 1778015364900,
-//         description: "mk 9",
-//         amount: 25,
-//         method: "Transferencia",
-//         icon: "bx-transfer"
-//     },
-//     {
-//         id: 1778015379492,
-//         description: "call of duty",
-//         amount: 25,
-//         method: "Yappy",
-//         icon: "bx-mobile-alt"
-//     },
-//     {
-//         id: 1778015401416,
-//         description: "gamecube",
-//         amount: 400,
-//         method: "Yappy Comercial",
-//         icon: "bx-store"
-//     },
-//     {
-//         id: 1778015427929,
-//         description: "pokemon rubi",
-//         amount: 42,
-//         method: "Tarjeta",
-//         icon: "bx-credit-card"
-//     }
-// ];
+salesList = [
+    {
+        id: 1778015330898,
+        description: "Switch",
+        amount: 367.5,
+        method: "Tarjeta",
+        icon: "bx-credit-card"
+    },
+    {
+        id: 1778015349175,
+        description: "mario",
+        amount: 40,
+        method: "Efectivo",
+        icon: "bx-money"
+    },
+    {
+        id: 1778015364900,
+        description: "mk 9",
+        amount: 25,
+        method: "Transferencia",
+        icon: "bx-transfer"
+    },
+    {
+        id: 1778015379492,
+        description: "call of duty",
+        amount: 25,
+        method: "Yappy",
+        icon: "bx-mobile-alt"
+    },
+    {
+        id: 1778015401416,
+        description: "gamecube",
+        amount: 400,
+        method: "Yappy Comercial",
+        icon: "bx-store"
+    },
+    {
+        id: 1778015427929,
+        description: "pokemon rubi",
+        amount: 42,
+        method: "Tarjeta",
+        icon: "bx-credit-card"
+    }
+];
 
-// saveData();
-// updateView();
-loadData();
+saveData();
+updateView();
+// loadData();
